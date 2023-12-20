@@ -2,4 +2,4 @@ numpy
 Pillow
 scikit-learn
 streamlit
-tensorflow
+tensorflow==2.10.0
