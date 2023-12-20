@@ -74,7 +74,7 @@ if uploaded_file is not None:
         if len(pred_digits) > 0 and pred_digits[0] < len(class2tag):
             predicted_label = class2tag[pred_digits[0]]
             confidence = pred_probabilities[0][pred_digits[0]]
-            st.write(f"Predicted Label: {predicted_label}")
-            st.write(f"Confidence: {round(float(confidence), 4) * 100}%")
+            st.write(f"Predicted Label: **{predicted_label}**")
+            st.write(f"Confidence: **{round(float(confidence), 4) * 100}%**")
         else:
             st.write("Error: Predicted class index out of bounds.")
