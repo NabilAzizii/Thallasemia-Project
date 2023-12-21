@@ -6,7 +6,7 @@ import time
 from tensorflow.keras.models import load_model
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.preprocessing import image as keras_image
-from tensorflow.keras.applications.imagenet_utils import decode_predictions
+from tensorflow.keras.applications.densenet import preprocess_input
 
 model = load_model("model_thalassemia_classifier_100.h5")
 with open("class.json") as fin:
@@ -62,14 +62,13 @@ st.sidebar.info("[Link to Original Repository](https://github.com/sains-data/Tha
 uploaded_file = st.file_uploader("Choose a blood image...", type=['jpeg', 'jpg', 'png'])
 
 if uploaded_file is not None:
-    image = Image.open(uploaded_file).resize((100, 100))
-    img_array = np.array(image)
+    img = keras_image.load_img(uploaded_file, target_size=(100, 100))
+    img_array = keras_image.img_to_array(img)
     img_array = img_array / 255.0
     img_array = np.expand_dims(img_array, axis=0)
-    img_array = np.expand_dims(img_array, axis=-1) 
-    img_array = np.repeat(img_array, 3, axis=-1)
 
-    st.image(image, use_column_width=True, caption=f'Uploaded Image: {uploaded_file.name}')
+
+    st.image(img, caption=f'Uploaded Image: {uploaded_file.name}')
 
     if st.button('Predict'):
         start_time = time.time()
